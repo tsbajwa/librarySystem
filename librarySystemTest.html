@@ -1,0 +1,80 @@
+<script src="librarySystem.js"></script>
+<script src="simpleTest.js"></script>
+
+<script>
+	
+	tests({
+		'Test 1: It should store and return libraryName with no dependencies.': function () {
+			librarySystem('name', [], function () {
+				return 'Gordon';
+			});
+			eq(librarySystem('name'), 'Gordon')
+		},
+
+		'Test 2: It should store and return libraryName with one dependency.': function () {
+			librarySystem('dependencyOne', [], function () {
+				return 'one dependency';
+			});
+
+			librarySystem('app', ['dependencyOne'], function (dependency) {
+				return 'app with ' + dependency;
+			});
+
+			eq(librarySystem('app'), 'app with one dependency');
+		},
+
+		'Test 3: It should store and return libraryName with multiple dependencies.': function () {
+			librarySystem('name', [], function () {
+				return 'Gordon';
+			});
+
+			librarySystem('company', [], function () {
+				return 'Watch and Code';
+			});
+
+			librarySystem('workBlurb', ['name', 'company'], function (name, company) {
+				return name + ' works at ' + company;
+			});
+
+			eq(librarySystem('workBlurb'), 'Gordon works at Watch and Code');
+		},
+
+		'Test 4: It should return libraryName, when libraryName was created after its dependencies.': function () {
+			librarySystem('dependency', [], function () {
+				return 'loaded dependency first';
+			});
+
+			librarySystem('app', ['dependency'], function (dependency) {
+				return 'app with ' + dependency;
+			});
+
+			eq(librarySystem('app'), 'app with loaded dependency first')
+		},
+		'Test 5: It should return libraryName, when libraryName was created before its dependencies.': function () {
+			librarySystem('libraryFirst', ['after1', 'after2'], function (after1, after2) {
+				return after1 + ' and ' + after2;
+			});
+			librarySystem('after1', [], function () {
+				return 'after1'
+			});
+			librarySystem('after2', [], function () {
+				return 'after2'
+			})
+			eq(librarySystem('libraryFirst'), 'after1 and after2');
+		},
+		'Test 6: It should only run the callback function once for each libraryName.': function () {
+			var numberOfTimesCallbackRan = 0;
+			librarySystem('multipleCall', [], function () {
+				numberOfTimesCallbackRan++
+			});
+
+			librarySystem('multipleCall');
+			librarySystem('multipleCall');
+			librarySystem('multipleCall');
+
+			eq(numberOfTimesCallbackRan, 1);
+		}
+
+	});
+
+</script>
