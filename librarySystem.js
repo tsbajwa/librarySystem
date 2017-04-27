@@ -13,7 +13,7 @@
 		}
 	}
 
-	// Internal Helper functionss:
+	// Internal Helper functions:
 
 	/*
 	 *Recursively goes through and loads all dependencies required by the library (libraryName). 
@@ -31,7 +31,7 @@
 		return library.cachedLibrary;
 	}
 
-	// Expose libraries to Global Window.
+	// Expose library to Global Window.
 	window.librarySystem = librarySystem;
 
 }());
