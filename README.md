@@ -6,7 +6,7 @@ Function was built using TDD practices and uses a slightly modifed version of th
 
 ### To Use
 
-*Download Files
-*Open librarySystemfTest.html (Chrome is recommended)
-*Open console to see details of each test
+* Download Files
+* Open librarySystemfTest.html (Chrome is recommended)
+* Open console to see details of each test
 
